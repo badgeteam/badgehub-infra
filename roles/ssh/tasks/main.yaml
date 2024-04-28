@@ -1,0 +1,6 @@
+- name: Update repositories cache and install ssh
+  ansible.builtin.apt:
+    name: ssh
+    update_cache: yes
+
+
