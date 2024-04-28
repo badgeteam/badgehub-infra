@@ -1,0 +1,9 @@
+- name: Update all packages to their latest version
+  apt:
+    upgrade: yes
+    update_cache: yes
+
+- name: Update repositories cache and install base package
+  ansible.builtin.apt:
+    name: "{{ base_packages }}"
+    update_cache: yes

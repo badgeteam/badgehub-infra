@@ -1,0 +1,6 @@
+- name: Configure badgehub system
+  hosts: all
+  remote_user: root
+
+  roles:
+    - system

@@ -1,0 +1,31 @@
+base_packages:
+      - vim
+      - git
+      - tmux
+      - nano
+      - htop
+      - curl
+      - wget
+      - tree
+      - ncdu
+      - zip
+      - unzip
+      - time
+      - apt-utils
+      - screen
+      - man-db
+      - dnsutils
+      - telnet
+      - tcpdump
+      - traceroute
+      - mtr
+      - nmap
+      - lsof
+      - apt-transport-https
+      - ca-certificates
+      - net-tools
+      - rsync
+      - jq
+      - sysstat
+      - gpg
+
