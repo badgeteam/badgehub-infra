@@ -1,3 +1,15 @@
+user:
+      name: badger
+      shell: /bin/bash
+docker_unsecure: False
+
+docker_packages:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-buildx-plugin
+      - docker-compose-plugin
+
 base_packages:
       - vim
       - git
