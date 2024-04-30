@@ -1,0 +1,12 @@
+PubKeyAuthentication yes
+Port 22
+PasswordAuthentication yes
+PermitEmptyPasswords no
+AllowUsers {{ user.name }}
+UsePam yes
+PrintMotd no
+AcceptEnv LANG LC_*
+Subsystem   sftp    /usr/libexec/openssh/sftp-server
+PermitRootLogin no
+PrintLastLog yes
+X11Forwarding no
