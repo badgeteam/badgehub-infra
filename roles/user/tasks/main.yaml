@@ -2,23 +2,23 @@
   group:
     name: "{{ item }}"
   loop:
-    - "{{ username }}"
+    - "{{ user.name }}"
 
 - name: Ensure the non-root user is created
   user:
-    name: "{{ username }}"
+    name: "{{ user.name }}"
     password: "{{ password | password_hash('sha512') }}"
     groups:
       - sudo
     append: yes
-    shell: "{{ shell }}"
+    shell: "{{ user.shell }}"
+    create_home: yes
     update_password: on_create
 
-
-- name: Enable passwordless sudo for "{{ username }}"
+- name: Enable passwordless sudo for "{{ user.name }}"
   lineinfile:
     dest: /etc/sudoers
     regexp: "^%wheel"
-    line: "{{ username }} ALL=(ALL) NOPASSWD: ALL"
+    line: "{{ user.name }} ALL=(ALL) NOPASSWD: ALL"
     validate: "/usr/sbin/visudo -cf %s"
 
