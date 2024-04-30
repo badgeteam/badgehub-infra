@@ -4,3 +4,11 @@
 
   roles:
     - system
+    - user
+    - ufw
+    - ssh
+
+  vars_prompt:
+    - name: password
+      prompt: What is your password?
+      private: true
