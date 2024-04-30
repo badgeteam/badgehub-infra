@@ -1,0 +1,14 @@
+- name: Update repositories cache and install ufw
+  ansible.builtin.apt:
+    name: ufw
+    update_cache: yes
+    cache_valid_time: 600
+
+- community.general.ufw:
+    rule: allow
+    name: OpenSSH
+
+- name: Enable UFW
+  community.general.ufw:
+    state: enabled
+
