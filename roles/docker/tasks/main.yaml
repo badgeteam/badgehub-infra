@@ -1,0 +1,54 @@
+- name: Update repositories cache and install docker package
+  ansible.builtin.apt:
+    name: "{{ docker_packages }}"
+    update_cache: yes
+    cache_valid_time: 600
+
+- name: upload new template
+  template:
+   src: 'daemon.json.j2'
+   dest: '/etc/docker/daemon.json'
+  become: true #<-- unless you are connecting as root
+
+- name: Add the user to docker group
+  ansible.builtin.user:
+    name: "{{ user.name }}"
+    groups: docker
+    append: yes
+  when: docker_unsecure
+
+- name: Copy systemd service for pruning docker stuff ( does not do volumes) 
+  ansible.builtin.copy:
+    src: files/docker-prune.service
+    dest:  /etc/systemd/system/docker-prune.service
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Copy timer and systemd service for pruning docker stuff ( does not do volumes) 
+  ansible.builtin.copy:
+    src: files/docker-prune.timer
+    dest:  /etc/systemd/system/docker-prune.timer
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: reload systemd 
+  systemd:
+    name: docker-prune.service
+    state: reloaded 
+    enabled: True 
+    daemon_reload: True 
+
+- name: reload systemd 
+  systemd:
+    name: docker-prune.timer
+    state: reloaded 
+    enabled:  True 
+    daemon_reload: True 
+
+- name: Restart service cron on debian, in all cases, also issue daemon-reload to pick up config changes
+  ansible.builtin.systemd_service:
+    state: restarted
+    name: docker
+    enabled: true
