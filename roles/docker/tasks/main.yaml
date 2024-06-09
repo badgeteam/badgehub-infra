@@ -48,7 +48,7 @@
 - name: reload systemd 
   systemd:
     name: docker-prune.timer
-    state: reloaded 
+    state: started 
     enabled:  True 
     daemon_reload: True 
   become: true 
