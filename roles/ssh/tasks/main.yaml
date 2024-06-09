@@ -3,6 +3,7 @@
     name: ssh
     update_cache: yes
     cache_valid_time: 600
+  become: true
 
 - name: Set authorized keys from all public key files in a directory, removing others
   ansible.posix.authorized_key:
@@ -22,6 +23,7 @@
     mode: '0600'
     validate: /usr/sbin/sshd -t -f %s
     backup: yes
+  become: true
 
 - name: Restart service 
   ansible.builtin.systemd_service:
@@ -29,8 +31,10 @@
     daemon_reload: true
     name: sshd
     enabled: true
+  become: true
 
 - community.general.ufw:
     rule: limit
     port: ssh
     proto: tcp
+  become: true

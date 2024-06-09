@@ -3,6 +3,7 @@
     name: "{{ item }}"
   loop:
     - "{{ user.name }}"
+  become: true
 
 - name: Ensure the non-root user is created
   user:
@@ -14,6 +15,7 @@
     shell: "{{ user.shell }}"
     create_home: yes
     update_password: on_create
+  become: true
 
 - name: Enable passwordless sudo for "{{ user.name }}"
   lineinfile:
@@ -21,4 +23,5 @@
     regexp: "^%wheel"
     line: "{{ user.name }} ALL=(ALL) NOPASSWD: ALL"
     validate: "/usr/sbin/visudo -cf %s"
+  become: true
 

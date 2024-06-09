@@ -3,6 +3,7 @@
     upgrade: yes
     update_cache: yes
     cache_valid_time: 600
+  become: true
   when: update_system
 
 - name: Update repositories cache and install base package
@@ -10,6 +11,7 @@
     name: "{{ base_packages }}"
     update_cache: yes
     cache_valid_time: 600
+  become: true
   when: update_system
 
 - name: Set timezone to Europe/Amsterdam
@@ -23,7 +25,7 @@
     name:  systemd-timesyncd
     state: restarted
     enabled:  true
-
+  become: true
 
 - name: upload new template
   template:
