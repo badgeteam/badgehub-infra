@@ -1,7 +1,9 @@
+ansible_ssh_common_args: '-o StrictHostKeyChecking=no -p 2222 '
 user:
       name: badger
       shell: /bin/bash
 docker_unsecure: False
+update_system: True
 
 docker_packages:
       - docker-ce
