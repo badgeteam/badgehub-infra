@@ -1,0 +1,19 @@
+- name: Configure badgehub system
+  hosts: all
+  remote_user: badger
+  vars:
+    ansible_port: 2222
+
+  roles:
+    - system
+    - user
+    - ufw
+    - ssh
+    - filesystem
+    - docker
+
+  vars_prompt:
+    - name: password
+      prompt: What should be the users password?
+      private: true
+   
