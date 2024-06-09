@@ -3,6 +3,7 @@
     name: "{{ docker_packages }}"
     update_cache: yes
     cache_valid_time: 600
+  become: true 
 
 - name: upload new template
   template:
@@ -15,6 +16,7 @@
     name: "{{ user.name }}"
     groups: docker
     append: yes
+  become: true 
   when: docker_unsecure
 
 - name: Copy systemd service for pruning docker stuff ( does not do volumes) 
@@ -24,6 +26,7 @@
     owner: root
     group: root
     mode: '0644'
+  become: true 
 
 - name: Copy timer and systemd service for pruning docker stuff ( does not do volumes) 
   ansible.builtin.copy:
@@ -32,6 +35,7 @@
     owner: root
     group: root
     mode: '0644'
+  become: true 
 
 - name: reload systemd 
   systemd:
@@ -39,6 +43,7 @@
     state: reloaded 
     enabled: True 
     daemon_reload: True 
+  become: true 
 
 - name: reload systemd 
   systemd:
@@ -46,9 +51,11 @@
     state: reloaded 
     enabled:  True 
     daemon_reload: True 
+  become: true 
 
 - name: Restart service cron on debian, in all cases, also issue daemon-reload to pick up config changes
   ansible.builtin.systemd_service:
     state: restarted
     name: docker
     enabled: true
+  become: true 
