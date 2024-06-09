@@ -6,11 +6,10 @@ docker_unsecure: False
 update_system: True
 
 docker_packages:
-      - docker-ce
-      - docker-ce-cli
-      - containerd.io
-      - docker-buildx-plugin
-      - docker-compose-plugin
+      - docker.io 
+      - docker-compose
+
+
 
 base_packages:
       - vim
