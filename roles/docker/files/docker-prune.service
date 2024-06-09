@@ -1,0 +1,8 @@
+[Unit]
+Description=Prune unused Docker containers, networks, and images
+Wants=docker-prune.timer
+After=docker.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/docker system prune -f

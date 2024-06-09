@@ -1,0 +1,9 @@
+[Unit]
+Description=Run Docker prune every 2 hours
+
+[Timer]
+OnCalendar=*-*-* *:00/2:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target
