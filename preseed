@@ -58,7 +58,7 @@ d-i passwd/username string badger
 # #   Please enter the same user password again to verify you have typed it
 # #   correctly.
 # d-i passwd/user-password-again password badgehub
-d-i passwd/user-password-crypted password fhtr7WJHfxApU
+d-i passwd/user-password-crypted password 1mrwTT0Zc2LRU
 
 d-i preseed/late_command string \
     in-target apt-get update; \
