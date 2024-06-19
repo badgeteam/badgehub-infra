@@ -19,23 +19,29 @@ We use ufw for firewalling. A openssh rule is added by default via ansible. Due 
 
 ### docker
 
-Docker role for installing docker. This also includes a docker system prune service and custom logging driver. 
+Docker role for installing docker. This also includes a docker system prune service and custom logging driver. By default, the docker prune service runs every day at 4AM host time.
 
 ## Getting started
 
 The playbook is designed to be ran from another host. First you must have ansible installed. 
 
-To start the configuration of the Debian VM, you must first configure the VM interactievly. For testing at the moment, we connect to the VM as root. 
+To start the configuration of the Debian VM, you must first configure the VM interactievly. For convenience, there is a Debian preseed file included. This file can be loaded pre-boot which automatically provisions the VM so it's ready to log in. Some notes about it:
+
+- It is configured to use DHCP at start
+- It will create a single partition with LVM with swap
+- It uses default credentials, which should be changed after installed.
+- It runs sshd on start
 
 Before you start, you should:
 
 - Generate a public key pair and put it in public_keys/ directory in the root of the repo.
 - Change the group_vars/all variables as per customizaiton needs 
-- Generate a hosts.ini file which has the host information, follow exmaple
+- Generate a hosts.ini file which has the host information, follow example
 
-Yu can start the playbook via:
+You can start the playbook via:
+
 
 ```
- ansible-playbook -i hosts.ini -k 
+ ansible-playbook -i hosts.ini -k playbook.yaml --ask-become-pass
 ```
 
