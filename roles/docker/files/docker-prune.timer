@@ -1,8 +1,8 @@
 [Unit]
-Description=Run Docker prune every 2 hours
+Description=Run Docker prune every day at 4am
 
 [Timer]
-OnCalendar=*-*-* *:00/2:00
+OnCalendar=*-*-* 04:00:00
 Persistent=true
 
 [Install]
