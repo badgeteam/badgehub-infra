@@ -18,8 +18,10 @@ d-i mirror/http/directory string /debian
 d-i mirror/http/proxy string
 
 # Account setup
-d-i passwd/root-password password root
-d-i passwd/root-password-again password root
+# d-i passwd/root-password password root
+# d-i passwd/root-password-again password root
+# d-i passwd/make-user boolean false  # Not creating a regular user, only root
+d-i passwd/root-password-crypted password *
 d-i passwd/make-user boolean false  # Not creating a regular user, only root
 
 ### Description: Create a normal user account now?
