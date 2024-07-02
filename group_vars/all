@@ -3,7 +3,14 @@ user:
       name: badger
       shell: /bin/bash
 docker_unsecure: False
-update_system: True
+update_system: False
+deploy_dir: /home/badger
+data_dir: /data
+
+repo_url: https://github.com/badgeteam/badgehub-api.git  # URL of the repository
+repo_branch: master  # Branch to checkout
+specific_file_path: docker-compose.yml # Path to the specific file in the rep
+
 
 docker_packages:
       - docker.io 
@@ -41,4 +48,15 @@ base_packages:
       - jq
       - sysstat
       - gpg
+      - sudo
 
+other:
+  - fail2ban
+  - sudo
+  - logrotate
+  - unattended-upgrades
+  - rsyslog
+
+
+filesystem:
+   data_path: /data
