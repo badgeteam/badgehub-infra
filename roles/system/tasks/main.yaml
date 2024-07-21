@@ -1,7 +1,7 @@
 - name: Update all packages to their latest version
   ansible.builtin.apt:
-    upgrade: yes
-    update_cache: yes
+    upgrade: true
+    update_cache: true
     cache_valid_time: 600
   become: true
   when: update_system
@@ -9,33 +9,35 @@
 - name: Update repositories cache and install base package
   ansible.builtin.apt:
     name: "{{ base_packages }}"
-    update_cache: yes
+    update_cache: true
     cache_valid_time: 600
   become: true
   when: update_system
 
 - name: Set timezone to Europe/Amsterdam
   become: true
-  timezone:
+  community.general.timezone:
     name: Europe/Amsterdam
 
 
 - name: Ensure timesync is enabled and restarted
-  systemd:
-    name:  systemd-timesyncd
+  ansible.builtin.systemd:
+    name: systemd-timesyncd
     state: restarted
-    enabled:  true
+    enabled: true
   become: true
 
-- name: upload new template
-  template:
-   src: 'journald.conf.j2'
-   dest: '/etc/systemd/journald.conf'
-  become: true #<-- unless you are connecting as root
+- name: Upload new template
+  ansible.builtin.template:
+    src: 'journald.conf.j2'
+    dest: '/etc/systemd/journald.conf'
+    owner: "{{ user.name }}"
+    group: "{{ user.name }}"
+    mode: '0755'
+  become: true # <-- unless you are connecting as root
 
-- name: reload systemd-journald
-  systemd:
-   name: systemd-journald
-   state: restarted
+- name: Reload systemd-journald
+  ansible.builtin.systemd:
+    name: systemd-journald
+    state: restarted
   become: true
-

@@ -1,61 +1,65 @@
 - name: Update repositories cache and install docker package
   ansible.builtin.apt:
     name: "{{ docker_packages }}"
-    update_cache: yes
+    update_cache: true
     cache_valid_time: 600
-  become: true 
+  become: true
 
-- name: upload new template
-  template:
-   src: 'daemon.json.j2'
-   dest: '/etc/docker/daemon.json'
-  become: true #<-- unless you are connecting as root
+- name: Upload new template
+  ansible.builtin.template:
+    src: 'daemon.json.j2'
+    dest: '/etc/docker/daemon.json'
+    owner: root
+    group: root
+    mode: '0644'
+  become: true # Unless you are connecting as root
 
 - name: Add the user to docker group
   ansible.builtin.user:
     name: "{{ user.name }}"
     groups: docker
-    append: yes
-  become: true 
+    append: true
+  become: true
   when: docker_unsecure
 
-- name: Copy systemd service for pruning docker stuff ( does not do volumes) 
+- name: Copy systemd service for pruning docker stuff (does not do volumes)
   ansible.builtin.copy:
     src: files/docker-prune.service
-    dest:  /etc/systemd/system/docker-prune.service
+    dest: /etc/systemd/system/docker-prune.service
     owner: root
     group: root
     mode: '0644'
-  become: true 
+  become: true
 
-- name: Copy timer and systemd service for pruning docker stuff ( does not do volumes) 
+- name: Copy timer and systemd service for pruning docker stuff (does not do volumes)
   ansible.builtin.copy:
     src: files/docker-prune.timer
-    dest:  /etc/systemd/system/docker-prune.timer
+    dest: /etc/systemd/system/docker-prune.timer
     owner: root
     group: root
     mode: '0644'
-  become: true 
+  become: true
 
-- name: reload systemd 
-  systemd:
+- name: Reload systemd service for docker-prune
+  ansible.builtin.systemd:
     name: docker-prune.service
-    state: reloaded 
-    enabled: True 
-    daemon_reload: True 
-  become: true 
-
-- name: reload systemd 
-  systemd:
-    name: docker-prune.timer
-    state: started 
-    enabled:  True 
-    daemon_reload: True 
-  become: true 
-
-- name: Restart service cron on debian, in all cases, also issue daemon-reload to pick up config changes
-  ansible.builtin.systemd_service:
-    state: restarted
-    name: docker
+    state: reloaded
     enabled: true
-  become: true 
+    daemon_reload: true
+  become: true
+
+- name: Start and enable systemd timer for docker-prune
+  ansible.builtin.systemd:
+    name: docker-prune.timer
+    state: started
+    enabled: true
+    daemon_reload: true
+  become: true
+
+- name: Restart docker service and reload daemon
+  ansible.builtin.systemd:
+    name: docker
+    state: restarted
+    enabled: true
+    daemon_reload: true
+  become: true

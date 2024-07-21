@@ -1,27 +1,26 @@
 - name: Ensure all necessary groups are created
-  group:
+  ansible.builtin.group:
     name: "{{ item }}"
   loop:
     - "{{ user.name }}"
   become: true
 
 - name: Ensure the non-root user is created
-  user:
+  ansible.builtin.user:
     name: "{{ user.name }}"
     password: "{{ password | password_hash('sha512') }}"
     groups:
       - sudo
-    append: yes
+    append: true
     shell: "{{ user.shell }}"
-    create_home: yes
+    create_home: true
     update_password: on_create
   become: true
 
 - name: Enable passwordless sudo for "{{ user.name }}"
-  lineinfile:
+  ansible.builtin.lineinfile:
     dest: /etc/sudoers
     regexp: "^%wheel"
     line: "{{ user.name }} ALL=(ALL) NOPASSWD: ALL"
     validate: "/usr/sbin/visudo -cf %s"
   become: true
-
