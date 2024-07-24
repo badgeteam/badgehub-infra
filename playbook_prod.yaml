@@ -1,5 +1,5 @@
 - name: Configure badgehub system
-  hosts: all
+  hosts: prod
   remote_user: badger
 
   roles:
