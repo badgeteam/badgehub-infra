@@ -5,6 +5,7 @@
     owner: 999
     group: 999
     mode: '0700'
+  become: true
 
 - name: Clone repository
   ansible.builtin.git:
@@ -12,3 +13,4 @@
     dest: "{{ deploy_dir }}/repo"
     version: "{{ repo_branch }}"
     update: true
+  become_user: "{{ user.name }}"
