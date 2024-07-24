@@ -11,6 +11,7 @@
     - ssh
     - filesystem
     - docker
+    - badgehub_api
 
   vars_prompt:
     - name: password
