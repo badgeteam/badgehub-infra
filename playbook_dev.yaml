@@ -1,5 +1,5 @@
 - name: Configure badgehub system
-  hosts: all
+  hosts: badgehub_test
   remote_user: badger
   vars:
     ansible_port: 2222
@@ -14,6 +14,5 @@
 
   vars_prompt:
     - name: password
-      prompt: What should be the users password?
+      prompt: "What should be the users password?"
       private: true
-   
