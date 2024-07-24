@@ -1,0 +1,14 @@
+- name: Create directory for PostgreSQL backup
+  ansible.builtin.file:
+    path: "{{ pg_backup_dir }}"
+    state: directory
+    owner: 999
+    group: 999
+    mode: '0700'
+
+- name: Clone repository
+  ansible.builtin.git:
+    repo: "{{ repo_url }}"
+    dest: "{{ deploy_dir }}/repo"
+    version: "{{ repo_branch }}"
+    update: true
