@@ -14,7 +14,7 @@
     append: true
     shell: "{{ user.shell }}"
     create_home: true
-    update_password: on_create
+    update_password: always
   become: true
 
 - name: Enable passwordless sudo for "{{ user.name }}"
