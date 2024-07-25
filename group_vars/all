@@ -20,6 +20,13 @@ repo_branch: master  # Branch to checkout
 filesystem:
    data_path: /data
 
+# UFW
+# This can be changed depending on if its dev or prod, defaulted to prod
+
+ufw_ports:
+      - 9002
+      - 9001
+
 # Packages
 
 docker_packages:

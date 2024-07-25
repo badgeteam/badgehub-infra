@@ -11,6 +11,15 @@
     name: OpenSSH
   become: true
 
+- name: Allow multiple TCP ports through UFW
+  ansible.builtin.ufw:
+    rule: allow
+    port: "{{ item }}"
+    proto: tcp
+  loop: "{{ ufw_ports }}"
+  become: true
+
+
 - name: Enable UFW
   community.general.ufw:
     state: enabled
