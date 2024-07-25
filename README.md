@@ -44,10 +44,12 @@ To start the configuration of the Debian VM, you must first configure the VM int
 
 Before you start, you should:
 
-- Generate a public key pair and put it in public_keys/ directory in the root of the repo.
+- Generate a public key pair and put it in public_keys/ directory in the root of the repo. Only the public key is needed as .pub . 
 - Change the group_vars/all variables as per customization needs 
 - Generate a hosts.ini file which has the host information, follow example
 - Swap the crypted password <d-i passwd/user-password-crypted password mkpasswdoutput> with a pass generated with `mkpasswd`
+- If you enter a different password on the prompt, it will change.
+- Remember to correctly set the vars in group_vars
 
 You can start the playbook via:
 
