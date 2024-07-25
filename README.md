@@ -41,6 +41,8 @@ Some key variables to look after:
 - `update_docker: true` - Update Docker  
 - `createorupdate_main_user: false` - Update user if any changes needed
 
+We also have environment specific variables in for each host group in `group_vars/`. 
+
 ## Contribution Guide
 
 At the moment, one recommendation is to use `ansible-lint` to lint the playbooks. You may create a fork with a different branch name and then create a PR explaining the changes. For any other questions or issues, you may open an issue or discussion. 
