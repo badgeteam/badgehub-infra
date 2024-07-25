@@ -1,6 +1,7 @@
 - name: Reload systemd daemon
   ansible.builtin.systemd:
     daemon_reload: true
+  become: true
 
 - name: Restart Docker
   ansible.builtin.systemd:
@@ -8,6 +9,7 @@
     state: restarted
     enabled: true
     daemon_reload: true
+  become: true
 
 - name: Reload systemd service for docker-prune
   ansible.builtin.systemd:
