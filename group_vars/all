@@ -1,23 +1,30 @@
+# User settings 
 user:
       name: badger
       shell: /bin/bash
-docker_unsecure: False
-update_system: False
-deploy_dir: /home/badger
-pg_backup_dir: /backup
-update_docker: true # turn on if updating or fresh install
-createorupdate_main_user: true
 
+# Runtime variables depending on scenario
+update_system: true
+
+docker_unsecure: False # TBD var
+update_docker: true # turn on if updating or fresh install
+createorupdate_main_user: false
+
+# Badgehub stuff
+pg_backup_dir: /backup
+deploy_dir: /home/badger
 repo_url: https://github.com/badgeteam/badgehub-api.git  # URL of the repository
 repo_branch: master  # Branch to checkout
-specific_file_path: docker-compose.yml # Path to the specific file in the rep
 
+
+filesystem:
+   data_path: /data
+
+# Packages
 
 docker_packages:
       - docker.io 
       - docker-compose
-
-
 
 base_packages:
       - vim
@@ -58,6 +65,3 @@ other:
   - unattended-upgrades
   - rsyslog
 
-
-filesystem:
-   data_path: /data
