@@ -16,19 +16,15 @@
   ansible.builtin.user:
     name: "{{ user.name }}"
     password: "{{ pause_result.user_input | password_hash('sha512') }}"
-    groups:
-      - sudo
-    append: true
     shell: "{{ user.shell }}"
     create_home: true
     update_password: always
   become: true
   when: createorupdate_main_user
 
-- name: Enable passwordless sudo for "{{ user.name }}"
-  ansible.builtin.lineinfile:
-    dest: /etc/sudoers
-    regexp: "^%wheel"
-    line: "{{ user.name }} ALL=(ALL) NOPASSWD: ALL"
-    validate: "/usr/sbin/visudo -cf %s"
+- name: "Ensure {{ user.name }} is in the sudo group"
+  ansible.builtin.user:
+    name: "{{ user.name }}"
+    groups: sudo
+    append: true
   become: true
