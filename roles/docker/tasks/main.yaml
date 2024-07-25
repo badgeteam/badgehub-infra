@@ -4,6 +4,7 @@
     update_cache: true
     cache_valid_time: 600
   become: true
+  when: update_docker
 
 - name: Upload new template
   ansible.builtin.template:
@@ -12,7 +13,12 @@
     owner: root
     group: root
     mode: '0644'
-  become: true # Unless you are connecting as root
+  become: true
+  notify: Restart Docker
+
+- name: Check if user is in docker group
+  ansible.builtin.command: groups {{ user.name }}
+  register: user_groups
 
 - name: Add the user to docker group
   ansible.builtin.user:
@@ -20,7 +26,8 @@
     groups: docker
     append: true
   become: true
-  when: docker_unsecure
+  when: "'docker' not in user_groups.stdout"
+
 
 - name: Copy systemd service for pruning docker stuff (does not do volumes)
   ansible.builtin.copy:
@@ -30,6 +37,7 @@
     group: root
     mode: '0644'
   become: true
+  notify: Reload systemd service for docker-prune
 
 - name: Copy timer and systemd service for pruning docker stuff (does not do volumes)
   ansible.builtin.copy:
@@ -39,27 +47,6 @@
     group: root
     mode: '0644'
   become: true
+  notify: Start and enable systemd timer for docker-prune
 
-- name: Reload systemd service for docker-prune
-  ansible.builtin.systemd:
-    name: docker-prune.service
-    state: reloaded
-    enabled: true
-    daemon_reload: true
-  become: true
 
-- name: Start and enable systemd timer for docker-prune
-  ansible.builtin.systemd:
-    name: docker-prune.timer
-    state: started
-    enabled: true
-    daemon_reload: true
-  become: true
-
-- name: Restart docker service and reload daemon
-  ansible.builtin.systemd:
-    name: docker
-    state: restarted
-    enabled: true
-    daemon_reload: true
-  become: true
