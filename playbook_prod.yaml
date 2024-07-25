@@ -9,8 +9,4 @@
     - ssh
     - filesystem
     - docker
-
-  vars_prompt:
-    - name: password
-      prompt: What should be the users password?
-      private: true
+    - badgehub_api
