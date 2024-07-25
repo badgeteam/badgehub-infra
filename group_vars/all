@@ -7,6 +7,7 @@ update_system: False
 deploy_dir: /home/badger
 pg_backup_dir: /backup
 update_docker: true # turn on if updating or fresh install
+createorupdate_main_user: true
 
 repo_url: https://github.com/badgeteam/badgehub-api.git  # URL of the repository
 repo_branch: master  # Branch to checkout

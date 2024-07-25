@@ -13,7 +13,4 @@
     - docker
     - badgehub_api
 
-  vars_prompt:
-    - name: password
-      prompt: "What should be the users password?"
-      private: true
+ 

@@ -1,3 +1,10 @@
+- name: Confirm Execution
+  pause:
+    prompt: "Prompt for user password"
+  register: pause_result
+  run_once: true
+  when: createorupdate_main_user
+
 - name: Ensure all necessary groups are created
   ansible.builtin.group:
     name: "{{ item }}"
@@ -8,7 +15,7 @@
 - name: Ensure the non-root user is created
   ansible.builtin.user:
     name: "{{ user.name }}"
-    password: "{{ password | password_hash('sha512') }}"
+    password: "{{ pause_result.user_input | password_hash('sha512') }}"
     groups:
       - sudo
     append: true
@@ -16,6 +23,7 @@
     create_home: true
     update_password: always
   become: true
+  when: createorupdate_main_user
 
 - name: Enable passwordless sudo for "{{ user.name }}"
   ansible.builtin.lineinfile:
