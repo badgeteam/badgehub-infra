@@ -16,6 +16,8 @@ services:
       - "9001:8081"
     env_file:
       - .env.prod
+    environment:
+      FRONTEND_IMAGE_TAG: "${FRONTEND_IMAGE_TAG}"
     depends_on:
       - db
     networks:
