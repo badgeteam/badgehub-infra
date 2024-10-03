@@ -8,11 +8,11 @@
 
 - name: Upload new template
   ansible.builtin.template:
-    src: 'daemon.json.j2'
-    dest: '/etc/docker/daemon.json'
+    src: "daemon.json.j2"
+    dest: "/etc/docker/daemon.json"
     owner: root
     group: root
-    mode: '0644'
+    mode: "0644"
   become: true
   notify: Restart Docker
 
@@ -28,14 +28,13 @@
   become: true
   when: "'docker' not in user_groups.stdout"
 
-
 - name: Copy systemd service for pruning docker stuff (does not do volumes)
   ansible.builtin.copy:
     src: files/docker-prune.service
     dest: /etc/systemd/system/docker-prune.service
     owner: root
     group: root
-    mode: '0644'
+    mode: "0644"
   become: true
   notify: Reload systemd service for docker-prune
 
@@ -45,8 +44,6 @@
     dest: /etc/systemd/system/docker-prune.timer
     owner: root
     group: root
-    mode: '0644'
+    mode: "0644"
   become: true
   notify: Start and enable systemd timer for docker-prune
-
-
