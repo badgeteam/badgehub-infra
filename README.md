@@ -101,7 +101,7 @@ Before running you should replace the password in the line `<d-i passwd/user-pas
 
 1. **Generate a Public Key Pair**: Put the public key in the `public_keys/` directory in the root of the repository. Only the public key is needed as `.pub`.
 2. **Customize Variables**: Customize `group_vars/all` as needed.
-3. **Create A .env File**: Run `cp badgehub/.env.default .env` and then customize the new file as needed.
+3. **Create A .env File**: In the `badgehub` directory, run `cp .env.default .env` and then customize the `.env` file as needed.
 4. **Generate a `hosts.ini` File**: Follow the example to include host information.
 
 ### Running the Playbook
