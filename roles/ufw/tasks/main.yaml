@@ -19,7 +19,6 @@
   loop: "{{ ufw_ports }}"
   become: true
 
-
 - name: Enable UFW
   community.general.ufw:
     state: enabled

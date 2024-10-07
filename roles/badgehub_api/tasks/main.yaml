@@ -4,7 +4,7 @@
     state: directory
     owner: 999
     group: 999
-    mode: '0700'
+    mode: "0700"
   become: true
 
 - name: Clone repository

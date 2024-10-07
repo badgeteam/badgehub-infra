@@ -1,7 +1,7 @@
-# User settings 
+# User settings
 user:
-      name: badger
-      shell: /bin/bash
+  name: badger
+  shell: /bin/bash
 
 # Runtime variables depending on scenario
 update_system: true
@@ -13,57 +13,56 @@ createorupdate_main_user: false
 # Badgehub stuff
 pg_backup_dir: /backup
 deploy_dir: /home/badger
-repo_url: https://github.com/badgeteam/badgehub-api.git  # URL of the repository
-repo_branch: master  # Branch to checkout
-
+repo_url: https://github.com/badgeteam/badgehub-api.git # URL of the repository
+repo_branch: master # Branch to checkout
 
 filesystem:
-   data_path: /data
+  data_path: /data
 
 # UFW
 # This can be changed depending on if its dev or prod, defaulted to prod
 
 ufw_ports:
-      - 9002
-      - 9001
+  - 9002
+  - 9001
 
 # Packages
 
 docker_packages:
-      - docker.io 
-      - docker-compose
+  - docker.io
+  - docker-compose
 
 base_packages:
-      - vim
-      - git
-      - tmux
-      - nano
-      - htop
-      - curl
-      - wget
-      - tree
-      - ncdu
-      - zip
-      - unzip
-      - time
-      - apt-utils
-      - screen
-      - man-db
-      - dnsutils
-      - telnet
-      - tcpdump
-      - traceroute
-      - mtr
-      - nmap
-      - lsof
-      - apt-transport-https
-      - ca-certificates
-      - net-tools
-      - rsync
-      - jq
-      - sysstat
-      - gpg
-      - sudo
+  - vim
+  - git
+  - tmux
+  - nano
+  - htop
+  - curl
+  - wget
+  - tree
+  - ncdu
+  - zip
+  - unzip
+  - time
+  - apt-utils
+  - screen
+  - man-db
+  - dnsutils
+  - telnet
+  - tcpdump
+  - traceroute
+  - mtr
+  - nmap
+  - lsof
+  - apt-transport-https
+  - ca-certificates
+  - net-tools
+  - rsync
+  - jq
+  - sysstat
+  - gpg
+  - sudo
 
 other:
   - fail2ban
@@ -71,4 +70,3 @@ other:
   - logrotate
   - unattended-upgrades
   - rsyslog
-
