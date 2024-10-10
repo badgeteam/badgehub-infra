@@ -2,10 +2,8 @@ services:
   db-keycloak:
     image: postgres:16
     restart: always
-    environment:
-      - POSTGRES_DB=keycloak
-      - POSTGRES_USER=keycloak
-      - POSTGRES_PASSWORD=password
+    env_file:
+      - .env.prod
     volumes:
       - postgres_data:/var/lib/postgresql/data
 #      - ./mockup-data.sql:/docker-entrypoint-initdb.d/data.sql
@@ -17,16 +15,14 @@ services:
     image: quay.io/keycloak/keycloak:23.0.3
     ports:
       - "8088:8080"
+    env_file:
+      - .env.prod
     environment:
-      - KEYCLOAK_ADMIN=admin
-      - KEYCLOAK_ADMIN_PASSWORD=somerandompassword
-      - KC_HOSTNAME_ADMIN=<TESTSERVER_HOSTNAME>
+      - KC_HOSTNAME_ADMIN=localhost
       - KC_PROXY=edge
-      - KC_HOSTNAME=<TESTSERVER_HOSTNAME>
+      - KC_HOSTNAME=localhost
       - KC_METRICS_ENABLED=true
       - KC_HEALTH_ENABLED=true
-      - KC_DB=postgres
-      - KC_DB_PASSWORD=password
       - KC_DB_SCHEMA=public
       - KC_DB_USERNAME=keycloak
       - KC_DB_URL_HOST=db-keycloak
@@ -48,14 +44,14 @@ services:
     image: dpage/pgadmin4
     container_name: pgadmin4_container
     restart: always
+    env_file:
+      - .env.prod
     ports:
       - "8002:8082"
     environment:
       - PGADMIN_LISTEN_PORT=8082
       - PGADMIN_CONFIG_SERVER_MODE=False
       - PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED=False
-      - PGADMIN_DEFAULT_EMAIL=dev@badgehub.team
-      - PGADMIN_DEFAULT_PASSWORD=badgehub
     volumes:
       - pgadmin_data:/var/lib/pgadmin
       - ./servers.json:/pgadmin4/servers.json
