@@ -10,6 +10,8 @@ services:
       - postgres_data:/var/lib/postgresql/data
 #      - ./mockup-data.sql:/docker-entrypoint-initdb.d/data.sql
 #      - ./backup:/var/backup
+    networks:
+      - badgehub_network
 
   keycloak:
     image: quay.io/keycloak/keycloak:23.0.3
@@ -39,6 +41,8 @@ services:
       - ./auth/import:/opt/keycloak/data/import
     depends_on:
       - db-keycloak
+    networks:
+      - badgehub_network
 
   pgadmin:
     image: dpage/pgadmin4
@@ -55,6 +59,10 @@ services:
     volumes:
       - pgadmin_data:/var/lib/pgadmin
       - ./servers.json:/pgadmin4/servers.json
+
+networks:
+  badgehub_network:
+    name: badgehub_network
 
 volumes:
   postgres_data:
