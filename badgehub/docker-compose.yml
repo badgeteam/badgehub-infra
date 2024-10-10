@@ -40,7 +40,7 @@ services:
     container_name: pgadmin4_container
     restart: always
     ports:
-      - "9002:8082"
+      - "8081:8082"
     env_file:
       - .env.prod
     environment:
