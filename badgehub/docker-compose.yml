@@ -36,7 +36,7 @@ services:
       - badgehub_network
 
   pgadmin:
-    image: dpage/pgadmin4
+    image: dpage/pgadmin4:8.11
     container_name: pgadmin4_container
     restart: always
     ports:
