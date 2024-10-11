@@ -6,8 +6,6 @@ services:
       - .env.prod
     volumes:
       - postgres_data:/var/lib/postgresql/data
-#      - ./mockup-data.sql:/docker-entrypoint-initdb.d/data.sql
-#      - ./backup:/var/backup
     networks:
       - badgehub_network
 
