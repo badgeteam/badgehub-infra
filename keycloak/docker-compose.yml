@@ -29,6 +29,7 @@ services:
       - KC_HOSTNAME_PORT=8088
       - KC_HTTP_ENABLED=true
       - KC_HOSTNAME_STRICT_HTTPS=false
+      - QUARKUS_TRANSACTION_MANAGER_ENABLE_RECOVERY=true
     command:
       - start
     volumes:
