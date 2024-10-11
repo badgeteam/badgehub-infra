@@ -3,7 +3,7 @@ services:
     image: postgres:16
     restart: always
     env_file:
-      - .env.prod
+      - .env
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
@@ -14,7 +14,7 @@ services:
     ports:
       - "8088:8080"
     env_file:
-      - .env.prod
+      - .env
     environment:
       - KC_HOSTNAME_ADMIN=localhost
       - KC_PROXY=edge
@@ -43,7 +43,7 @@ services:
     container_name: pgadmin4_container
     restart: always
     env_file:
-      - .env.prod
+      - .env
     ports:
       - "8081:8082"
     environment:
