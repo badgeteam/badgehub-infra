@@ -17,9 +17,7 @@ services:
       - .env
     entrypoint: sh -c "/opt/keycloak/bin/kc.sh start"
     environment:
-      - KC_HOSTNAME_ADMIN=localhost
       - KC_PROXY=edge
-      - KC_HOSTNAME=localhost
       - KC_METRICS_ENABLED=true
       - KC_HEALTH_ENABLED=true
       - KC_DB_SCHEMA=public
