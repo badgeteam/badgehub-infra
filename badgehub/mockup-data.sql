@@ -61,12 +61,12 @@ SET default_table_access_method = heap;
 --
 
 CREATE TABLE badgehub.badge_project (
-    id bigint NOT NULL,
-    badge_id bigint NOT NULL,
-    project_id bigint NOT NULL,
-    status badgehub.badge_project_status DEFAULT 'unknown'::badgehub.badge_project_status NOT NULL,
-    created_at timestamp with time zone,
-    updated_at timestamp with time zone
+                                      id bigint NOT NULL,
+                                      badge_id bigint NOT NULL,
+                                      project_id bigint NOT NULL,
+                                      status badgehub.badge_project_status DEFAULT 'unknown'::badgehub.badge_project_status NOT NULL,
+                                      created_at timestamp with time zone,
+                                      updated_at timestamp with time zone
 );
 
 
@@ -77,11 +77,11 @@ ALTER TABLE badgehub.badge_project OWNER TO badgehub;
 --
 
 CREATE SEQUENCE badgehub.badge_project_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
+  START WITH 1
+  INCREMENT BY 1
+  NO MINVALUE
+  NO MAXVALUE
+  CACHE 1;
 
 
 ALTER SEQUENCE badgehub.badge_project_id_seq OWNER TO badgehub;
@@ -98,14 +98,14 @@ ALTER SEQUENCE badgehub.badge_project_id_seq OWNED BY badgehub.badge_project.id;
 --
 
 CREATE TABLE badgehub.badges (
-    id bigint NOT NULL,
-    name character varying(191) NOT NULL,
-    slug character varying(191) NOT NULL,
-    constraints text,
-    commands text,
-    deleted_at timestamp with time zone,
-    created_at timestamp with time zone,
-    updated_at timestamp with time zone
+                               id bigint NOT NULL,
+                               name character varying(191) NOT NULL,
+                               slug character varying(191) NOT NULL,
+                               constraints text,
+                               commands text,
+                               deleted_at timestamp with time zone,
+                               created_at timestamp with time zone,
+                               updated_at timestamp with time zone
 );
 
 
@@ -116,11 +116,11 @@ ALTER TABLE badgehub.badges OWNER TO badgehub;
 --
 
 CREATE SEQUENCE badgehub.badges_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
+  START WITH 1
+  INCREMENT BY 1
+  NO MINVALUE
+  NO MAXVALUE
+  CACHE 1;
 
 
 ALTER SEQUENCE badgehub.badges_id_seq OWNER TO badgehub;
@@ -137,13 +137,13 @@ ALTER SEQUENCE badgehub.badges_id_seq OWNED BY badgehub.badges.id;
 --
 
 CREATE TABLE badgehub.categories (
-    id bigint NOT NULL,
-    name character varying(191) NOT NULL,
-    slug character varying(191) NOT NULL,
-    deleted_at timestamp with time zone,
-    created_at timestamp with time zone,
-    updated_at timestamp with time zone,
-    hidden boolean DEFAULT false NOT NULL
+                                   id bigint NOT NULL,
+                                   name character varying(191) NOT NULL,
+                                   slug character varying(191) NOT NULL,
+                                   deleted_at timestamp with time zone,
+                                   created_at timestamp with time zone,
+                                   updated_at timestamp with time zone,
+                                   hidden boolean DEFAULT false NOT NULL
 );
 
 
@@ -154,11 +154,11 @@ ALTER TABLE badgehub.categories OWNER TO badgehub;
 --
 
 CREATE SEQUENCE badgehub.categories_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
+  START WITH 1
+  INCREMENT BY 1
+  NO MINVALUE
+  NO MAXVALUE
+  CACHE 1;
 
 
 ALTER SEQUENCE badgehub.categories_id_seq OWNER TO badgehub;
@@ -175,10 +175,10 @@ ALTER SEQUENCE badgehub.categories_id_seq OWNED BY badgehub.categories.id;
 --
 
 CREATE TABLE badgehub.dependencies (
-    project_id bigint,
-    depends_on_project_id bigint,
-    created_at timestamp with time zone,
-    updated_at timestamp with time zone
+                                     project_id bigint,
+                                     depends_on_project_id bigint,
+                                     created_at timestamp with time zone,
+                                     updated_at timestamp with time zone
 );
 
 
@@ -189,24 +189,24 @@ ALTER TABLE badgehub.dependencies OWNER TO badgehub;
 --
 
 CREATE TABLE badgehub.projects (
-    id bigint NOT NULL,
-    category_id bigint DEFAULT '1'::bigint NOT NULL,
-    user_id bigint NOT NULL,
-    name character varying(191) NOT NULL,
-    slug character varying(191),
-    min_firmware bigint,
-    max_firmware bigint,
-    git character varying(191),
-    git_commit_id character varying(191),
-    published_at timestamp with time zone,
-    deleted_at timestamp with time zone,
-    created_at timestamp with time zone,
-    updated_at timestamp with time zone,
-    download_counter bigint DEFAULT '0'::bigint NOT NULL,
-    allow_team_fixes boolean DEFAULT true NOT NULL,
-    project_type badgehub.projects_project_type DEFAULT 'python'::badgehub.projects_project_type NOT NULL,
-    license character varying(191) DEFAULT 'MIT'::character varying NOT NULL,
-    description character varying(500)
+                                 id bigint NOT NULL,
+                                 category_id bigint DEFAULT '1'::bigint NOT NULL,
+                                 user_id bigint NOT NULL,
+                                 name character varying(191) NOT NULL,
+                                 slug character varying(191),
+                                 min_firmware bigint,
+                                 max_firmware bigint,
+                                 git character varying(191),
+                                 git_commit_id character varying(191),
+                                 published_at timestamp with time zone,
+                                 deleted_at timestamp with time zone,
+                                 created_at timestamp with time zone,
+                                 updated_at timestamp with time zone,
+                                 download_counter bigint DEFAULT '0'::bigint NOT NULL,
+                                 allow_team_fixes boolean DEFAULT true NOT NULL,
+                                 project_type badgehub.projects_project_type DEFAULT 'python'::badgehub.projects_project_type NOT NULL,
+                                 license character varying(191) DEFAULT 'MIT'::character varying NOT NULL,
+                                 description character varying(500)
 );
 
 
@@ -217,11 +217,11 @@ ALTER TABLE badgehub.projects OWNER TO badgehub;
 --
 
 CREATE SEQUENCE badgehub.projects_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
+  START WITH 1
+  INCREMENT BY 1
+  NO MINVALUE
+  NO MAXVALUE
+  CACHE 1;
 
 
 ALTER SEQUENCE badgehub.projects_id_seq OWNER TO badgehub;
@@ -238,21 +238,21 @@ ALTER SEQUENCE badgehub.projects_id_seq OWNED BY badgehub.projects.id;
 --
 
 CREATE TABLE badgehub.users (
-    id bigint NOT NULL,
-    admin boolean DEFAULT false NOT NULL,
-    name character varying(191) NOT NULL,
-    email character varying(191) NOT NULL,
-    email_verified_at timestamp with time zone,
-    password character varying(191) NOT NULL,
-    remember_token character varying(100),
-    editor character varying(80) DEFAULT 'default'::character varying NOT NULL,
-    public boolean DEFAULT false NOT NULL,
-    show_projects boolean DEFAULT true NOT NULL,
-    google2fa_enabled boolean DEFAULT false NOT NULL,
-    google2fa_secret text,
-    deleted_at timestamp with time zone,
-    created_at timestamp with time zone,
-    updated_at timestamp with time zone
+                              id bigint NOT NULL,
+                              admin boolean DEFAULT false NOT NULL,
+                              name character varying(191) NOT NULL,
+                              email character varying(191) NOT NULL,
+                              email_verified_at timestamp with time zone,
+                              password character varying(191) NOT NULL,
+                              remember_token character varying(100),
+                              editor character varying(80) DEFAULT 'default'::character varying NOT NULL,
+                              public boolean DEFAULT false NOT NULL,
+                              show_projects boolean DEFAULT true NOT NULL,
+                              google2fa_enabled boolean DEFAULT false NOT NULL,
+                              google2fa_secret text,
+                              deleted_at timestamp with time zone,
+                              created_at timestamp with time zone,
+                              updated_at timestamp with time zone
 );
 
 
@@ -263,11 +263,11 @@ ALTER TABLE badgehub.users OWNER TO badgehub;
 --
 
 CREATE SEQUENCE badgehub.users_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
+  START WITH 1
+  INCREMENT BY 1
+  NO MINVALUE
+  NO MAXVALUE
+  CACHE 1;
 
 
 ALTER SEQUENCE badgehub.users_id_seq OWNER TO badgehub;
@@ -683,7 +683,7 @@ SELECT pg_catalog.setval('badgehub.users_id_seq', 1, true);
 --
 
 ALTER TABLE ONLY badgehub.badge_project
-    ADD CONSTRAINT idx_24600_primary PRIMARY KEY (id);
+  ADD CONSTRAINT idx_24600_primary PRIMARY KEY (id);
 
 
 --
@@ -691,7 +691,7 @@ ALTER TABLE ONLY badgehub.badge_project
 --
 
 ALTER TABLE ONLY badgehub.badges
-    ADD CONSTRAINT idx_24606_primary PRIMARY KEY (id);
+  ADD CONSTRAINT idx_24606_primary PRIMARY KEY (id);
 
 
 --
@@ -699,7 +699,7 @@ ALTER TABLE ONLY badgehub.badges
 --
 
 ALTER TABLE ONLY badgehub.categories
-    ADD CONSTRAINT idx_24613_primary PRIMARY KEY (id);
+  ADD CONSTRAINT idx_24613_primary PRIMARY KEY (id);
 
 
 --
@@ -707,7 +707,7 @@ ALTER TABLE ONLY badgehub.categories
 --
 
 ALTER TABLE ONLY badgehub.projects
-    ADD CONSTRAINT idx_24649_primary PRIMARY KEY (id);
+  ADD CONSTRAINT idx_24649_primary PRIMARY KEY (id);
 
 
 --
@@ -715,7 +715,7 @@ ALTER TABLE ONLY badgehub.projects
 --
 
 ALTER TABLE ONLY badgehub.users
-    ADD CONSTRAINT idx_24661_primary PRIMARY KEY (id);
+  ADD CONSTRAINT idx_24661_primary PRIMARY KEY (id);
 
 
 --
@@ -793,7 +793,7 @@ CREATE UNIQUE INDEX idx_24661_users_email_unique ON badgehub.users USING btree (
 --
 
 ALTER TABLE ONLY badgehub.badge_project
-    ADD CONSTRAINT badge_project_badge_id_foreign FOREIGN KEY (badge_id) REFERENCES badgehub.badges(id) ON UPDATE CASCADE ON DELETE CASCADE;
+  ADD CONSTRAINT badge_project_badge_id_foreign FOREIGN KEY (badge_id) REFERENCES badgehub.badges(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -801,7 +801,7 @@ ALTER TABLE ONLY badgehub.badge_project
 --
 
 ALTER TABLE ONLY badgehub.badge_project
-    ADD CONSTRAINT badge_project_project_id_foreign FOREIGN KEY (project_id) REFERENCES badgehub.projects(id) ON UPDATE CASCADE ON DELETE CASCADE;
+  ADD CONSTRAINT badge_project_project_id_foreign FOREIGN KEY (project_id) REFERENCES badgehub.projects(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -809,7 +809,7 @@ ALTER TABLE ONLY badgehub.badge_project
 --
 
 ALTER TABLE ONLY badgehub.dependencies
-    ADD CONSTRAINT dependencies_depends_on_project_id_foreign FOREIGN KEY (depends_on_project_id) REFERENCES badgehub.projects(id) ON DELETE CASCADE;
+  ADD CONSTRAINT dependencies_depends_on_project_id_foreign FOREIGN KEY (depends_on_project_id) REFERENCES badgehub.projects(id) ON DELETE CASCADE;
 
 
 --
@@ -817,7 +817,7 @@ ALTER TABLE ONLY badgehub.dependencies
 --
 
 ALTER TABLE ONLY badgehub.dependencies
-    ADD CONSTRAINT dependencies_project_id_foreign FOREIGN KEY (project_id) REFERENCES badgehub.projects(id) ON DELETE CASCADE;
+  ADD CONSTRAINT dependencies_project_id_foreign FOREIGN KEY (project_id) REFERENCES badgehub.projects(id) ON DELETE CASCADE;
 
 
 --
