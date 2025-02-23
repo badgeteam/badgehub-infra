@@ -14,7 +14,7 @@ createorupdate_main_user: false
 pg_backup_dir: /backup
 deploy_dir: /home/badger
 repo_url: https://github.com/badgeteam/badgehub-api.git # URL of the repository
-repo_branch: master # Branch to checkout
+repo_branch: main # Branch to checkout
 
 filesystem:
   data_path: /data
