@@ -17,6 +17,8 @@ services:
       - .env
     entrypoint: sh -c "/opt/keycloak/bin/kc.sh start"
     environment:
+      - KEYCLOAK_OPTS=--proxy=xforwarded
+      - PROXY_ADDRESS_FORWARDING=true
       - KC_PROXY=edge
       - KC_METRICS_ENABLED=true
       - KC_HEALTH_ENABLED=true
