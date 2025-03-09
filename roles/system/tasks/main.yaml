@@ -30,8 +30,8 @@
   ansible.builtin.template:
     src: "journald.conf.j2"
     dest: "/etc/systemd/journald.conf"
-    owner: "{{ user.name }}"
-    group: "{{ user.name }}"
+    owner: "root"
+    group: "root"
     mode: "0755"
   become: true # <-- unless you are connecting as root
   notify: Reload systemd-journald
