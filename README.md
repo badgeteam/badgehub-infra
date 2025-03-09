@@ -19,6 +19,7 @@ The goal is to create an easy and reproducible recipe to procure BadgeHub infras
 
 - Ansible core 2.17.1 minimum
 - Debian target host with internet access
+- Root or user with sudo 
 
 ### Recommended Hardware Specifications
 
