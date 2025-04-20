@@ -1,0 +1,44 @@
+- name: Check that the keycloak dir exists from badgehub-infra
+  stat:
+    path: "{{ deploy_dir }}/{{badgeinfra_reponame}}/keycloak"
+  register: kc
+
+- name: Clone repository
+  ansible.builtin.git:
+    repo: "{{ badge_infra_repo_url }}"
+    dest: "{{ deploy_dir }}/{{badgeinfra_reponame}}"
+    version: "{{ badge_infra_repo_branch }}"
+    update: true
+    force: true
+  become_user: "{{ user.name }}"
+  when: (kc.stat.isdir is not defined and not kc.stat.exists) or ( force_kc_update)
+
+- name: Check that the env file exists
+  stat:
+    path: "{{ deploy_dir }}/{{badgeinfra_reponame}}/keycloak/.env"
+  become_user: "{{ user.name }}"
+  register: kc_env
+
+- name: Create the file, if it doesnt exist already
+  command: mv keycloak/.env.example  keycloak/.env
+  become_user: "{{ user.name }}"
+  become: True
+  args:
+    chdir: "{{ deploy_dir }}/{{badgeinfra_reponame}}"
+  when: not kc_env.stat.exists
+
+- name: Create directory for PostgreSQL backup of keycloak
+  ansible.builtin.file:
+    path: "{{ pg_kc_backup_dir }}"
+    state: directory
+    owner: 999
+    group: 999
+    mode: "0700"
+  become: true
+
+- name: Run keycloak
+  become: True
+  shell:
+    cmd: "docker-compose -f {{ deploy_dir }}/{{badgeinfra_reponame}}/keycloak/docker-compose.yml  up -d"
+    chdir:
+  become_user: "{{ user.name }}"

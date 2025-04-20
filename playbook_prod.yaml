@@ -10,3 +10,4 @@
     - filesystem
     - docker
     - badgehub_api
+    - keycloak

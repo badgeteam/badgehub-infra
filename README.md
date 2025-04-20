@@ -22,6 +22,28 @@ The goal is to create an easy and reproducible recipe to procure BadgeHub infras
 - Ansible core 2.17.1 minimum
 - Debian target host with internet access
 
+## Running it locally with only docker compose
+
+First create the docker network
+
+`docker network create badgehub_network`
+
+### Keycloak
+If you wish to have working authentication, you must launch keycloak first:
+
+```
+cd keycloak && docker compose --env-file .env.local up -d 
+```
+Then under "Clients" you have to import `badgehub-local-client.json`. The secret of the client should match the one in .env.local for Keycloak.
+
+The keycloak role, if ran again, will remove all uncommited changes to tracked files on the remote host. 
+
+### Badgehub 
+
+Run badgehub frontend and backend with postgres database. 
+
+`cd badgehub && docker compose --env-file .env.local up -d`
+
 ### Recommended Hardware Specifications
 
 There is currently no real world test case on how many resources does the server need as it is in early development. A good guesstimate is:
