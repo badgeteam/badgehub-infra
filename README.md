@@ -9,6 +9,8 @@ We have several roles designed to be modular, so they may be used independently.
 - BadgeHub API
 - Keycloak for authentication
 
+The repo is currently designed to be ran remotely and not on the host it's supposed to be installed on, it can still be done but it has not been tested.
+
 ## Goals
 
 The goal is to create an easy and reproducible recipe to procure BadgeHub infrastructure that will reliably host the services needed for WHY2025 and any future events held by any other parts of the community.
