@@ -36,7 +36,7 @@ cd keycloak && docker compose --env-file .env.local up -d
 ```
 Then under "Clients" you have to import `badgehub-local-client.json`. The secret of the client should match the one in .env.local for Keycloak.
 
-The keycloak role, if ran again, will remove all uncommited changes to tracked files. 
+The keycloak role, if ran again, will remove all uncommited changes to tracked files on the remote host. 
 
 ### Badgehub 
 
